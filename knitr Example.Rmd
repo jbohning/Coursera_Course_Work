@@ -1,0 +1,19 @@
+---
+output: html_document
+---
+My First knitr Document
+==================================
+
+This is some text (i.e. a "text chunk").
+
+Here is a code chunk
+```{r}
+set.seed(1)
+x<-rnorm(100)
+mean(x)
+```
+
+Code chunks can have names, which is useful when we start making graphics
+```{r firstchunk}
+## R code goes here
+```

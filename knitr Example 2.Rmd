@@ -1,0 +1,80 @@
+# Another knitr Document
+Jessica Bohning
+
+## Introduction
+
+This is some text (i.e. a "text chunk"). Here is a code chunk.
+```{r simulation, echo=FALSE}
+## The "echo=FALSE" piece keeps the code from being echoed in the output
+## document- only the output will be shown
+set.seed(1)
+x<-rnorm(100)
+mean(x)
+```
+
+```{r computetime, echo=FALSE}
+time<- format(Sys.time(), "%a %b %d %X %Y")
+rand<-rnorm(1)
+```
+
+The current time is `r time` 
+
+My favorite random number is `r rand`
+
+(Note the previous sentences used code!)
+
+## Introduction: Incorporating Graphics
+
+Let's first simulate some data 
+```{r simulatedata, echo=TRUE}
+x<-rnorm(100); y<-x+rnorm(100,sd=0.5)
+```
+
+Here is a scatterplot of the data.
+```{r scatterplot, fig.height=4}
+par(mar=c(5,4,1,1),las=1)
+plot(x,y,main="My Simulated Data")
+```
+
+
+## Making Tables with xtable
+
+We want to make a pretty table- not just a standard table
+```{r fitmodel}
+library(datasets)
+data(airquality)
+fit<-lm(Ozone~Wind+Temp+Solar.R,data=airquality)
+```
+
+Here is a table of regression coefficients.
+```{r showtable,results="asis"}
+library(xtable)
+xt<-xtable(summary(fit))
+print(xt,type="html")
+```
+
+
+## Setting Global Options (Do this first in your document)
+
+This is good if you always want "echo=FALSE" or other similar things
+```{r setoptions,echo=FALSE}
+## opts_chunk$set(echo=FALSE,results="hide")
+##Obviously uncomment if you want to use this
+```
+
+First simulate data
+```{r simulatedata2, echo=TRUE}
+x<-rnorm(100); y<-x+rnorm(100,sd=0.5)
+```
+
+Here is a scatterplot of the data.
+```{r scatterplot2, fig.height=4}
+par(mar=c(5,4,1,1),las=1)
+plot(x,y,main="My Simulated Data")
+```
+
+## Caching Computations
+
+If you have complex code chunks, this can take a long time to run so use the
+option "cache=TRUE" when possible to save yourself some time (use in the chunks
+themselves)
